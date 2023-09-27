@@ -1,0 +1,58 @@
+<h2>
+  הפרויקטים שלי <img src="../../assets/images/project.png" class="icon-image" alt="">
+</h2>
+<div class="container">
+  <div class="calculate">
+    <span>אחוז הפרויקטים שעמדו בדדלין :<h5>{{percentageMetDeadline}}</h5></span>
+    <span>ממוצע מיונים: <h5>{{averageGrade}}</h5></span>
+  </div>
+</div>
+<div class="search">
+  <select id="inputState" class="form-control" ngModel (ngModelChange)="whichSearchTypeOpen($event)">
+    <option value="">חפש לפי</option>
+    <option value="0">שם פרויקט</option>
+    <option value="1">ציון גדול מ:</option>
+    <option value="2">ציון קטן מ:</option>
+  </select>
+
+  <div class="autocomplete-1" *ngIf="openSortInputByName">
+    <ng-autocomplete style="width: 100%;" [data]="myProjectNamesfilterdArr" [searchKeyword]="'name'" placeholder="שם"
+      historyIdentifier="name" class="autoComplete" [itemTemplate]="itemTemplate"
+      (ngModelChange)="searchByName($event.name)" ngModel name="name" #name="ngModel" required
+      [notFoundTemplate]="notFoundTemplate">
+    </ng-autocomplete>
+    <ng-template #itemTemplate let-item>
+      <a [innerHTML]="item.name"></a>
+    </ng-template>
+    <ng-template #notFoundTemplate let-notFound>
+      <div [innerHTML]="'לא נמצאו תוצאות'"></div>
+    </ng-template>
+  </div>
+    <div class="form-outline"  *ngIf="openSortInputByHighScore">
+      <input type="tel" name="grade" [(ngModel)]="grade" pattern="[0-9]+" #highNumber (change)="onSortInputByHighScore(highNumber)" id="typePhone" class="form-control" />
+    </div>
+
+    <div class="form-outline" *ngIf="openSortInputByLowScore">
+      <input type="tel"  name="grade" [(ngModel)]="grade" pattern="[0-9]+" #numberLow (change)="onSortInputByLowScore(numberLow)" id="typePhone" class="form-control" />
+    </div>
+</div>
+
+<app-smart-card>
+  <div body>
+    <div *ngIf="myProjectArr?.length == 0">
+      <br>
+      <h2>לא נמצאו פרויקטים!</h2>
+    </div>
+    <app-pop-up-for-image *ngIf="!myProjectArr" [title]="'רק רגע...'">
+      <div body class="body-content">
+        <img src="../../assets/images/spinner.gif" id="pop-up-image" />
+      </div>
+    </app-pop-up-for-image>
+    <div *ngIf="myProjectArr?.length > 0 ">
+      <app-smart-table [ifShowpagination]="[true,10]" [thArr]="thArrTableMyProjects" [ifSortDown]="ifSortDown"
+        [tableDataKeys]="myProjectListKeys" [tableData]="myProjectArr" (SortTableDown)="sortTableDown($event)"
+        (SortTableUp)="sortTableUp($event)">
+      </app-smart-table>
+    </div>
+  </div>
+</app-smart-card>

@@ -1,0 +1,13 @@
+<app-smart-card class="task-card-timer" [title]="title">
+  <div body>
+    <h6 *ngIf="userDetailsToJson?.personalDetails?.name">שם העובד: {{userDetailsToJson?.personalDetails?.name}}</h6>
+    <p *ngIf="userDetailsToJson?.personalDetails?.Team" class="card-text"> צוות:
+      {{userDetailsToJson?.personalDetails?.Team }} </p>
+    <p *ngIf="userDetailsToJson?.personalDetails?.joinedAt" class="card-text"> הצטרף
+      ב: {{userDetailsToJson?.personalDetails?.joinedAt| date: 'dd/MM/yyyy' }}
+    </p>
+    <img class="img-user" *ngIf="userDetailsToJson?.personalDetails?.avatar"
+      src="{{userDetailsToJson?.personalDetails?.avatar}}" alt="image" />
+    <br>
+  </div>
+</app-smart-card>

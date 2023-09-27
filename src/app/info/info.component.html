@@ -1,0 +1,30 @@
+<div class="page" *ngIf="showMenu">
+  <nav class="page__menu page__custom-settings menu">
+    <ul class="menu__list r-list">
+      <li class="menu__group"><a [routerLink]="['/info/my-projects']"
+          class="menu__link r-link text-underlined">הפרויקטים שלי</a></li>
+      <li class="menu__group"><a [routerLink]="['/info/my-personal-details']"
+          class="menu__link r-link text-underlined">פרטים אישיים</a></li>
+      <li class="menu__group"><a (click)="logOut()" [routerLink]="['/']"
+          class="menu__link r-link text-underlined">התנתק</a></li>
+    </ul>
+  </nav>
+</div>
+<!-- 
+      <app-my-personal-details></app-my-personal-details>
+      <app-my-projects></app-my-projects> -->
+
+<div *ngIf="!showMenu">
+  <app-pop-up>
+    <div body>
+      <app-massge-to-user [kindOfMassage]="kindOfMassage" [massgeUserHeader]="massgeUserHeader"
+        [massgeUserBody1]="massgeUserBody" [massgeUserBody2]="massgeUserFooter" (clickYes)="goToProjectPage($event)"
+        (clickNo)="goToPersonalDetailsPage($event)" [ifButton]="true" [textOfBtnYes]="'הפרויקטים שלי'" [textOfBtnNo]="'פרטים אישיים'">
+        <div body></div>
+      </app-massge-to-user>
+    </div>
+  </app-pop-up>
+</div>
+
+
+<router-outlet></router-outlet>
